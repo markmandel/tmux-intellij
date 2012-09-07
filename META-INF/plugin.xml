@@ -1,0 +1,48 @@
+<idea-plugin version="2">
+  <name>Tmux</name>
+  <description>
+	  Plugin that provides tmux integration with IntelliJ.  First pass will be the ability to send data to a specific Tmux panel, which can allow for
+	  REPL integration with IntelliJ
+  </description>
+  <version>1.0</version>
+  <vendor>Mark Mandel</vendor>
+
+  <!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="107.105"/>
+
+	<application-components>
+		<component>
+			<!-- Component's implementation class -->
+			<implementation-class>com.compoundtheory.intellij.tmux.TmuxPlugin</implementation-class>
+
+			<!-- Component's interface class -->
+			<interface-class>com.compoundtheory.intellij.tmux.TmuxPlugin</interface-class>
+		</component>
+	</application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+	  <group id="Tmux.default.group" class="com.compoundtheory.intellij.tmux.TmuxDefaultActionGroup" text="Tmux" description="Tmux" popup="true">
+		  <add-to-group group-id="ToolsMenu"/>
+
+		  <group id="Tmux.panel.select.group" class="com.compoundtheory.intellij.tmux.SelectPaneActionGroup" text="Select Pane:" description="Select the pane you want"
+				 popup="true"/>
+
+
+		  <action id="com.compoundtheory.intellij.tmux.HelloWorldAction"
+				  class="com.compoundtheory.intellij.tmux.HelloWorldAction"
+				  text="Paste to Tmux Pane"
+				  >
+			  <keyboard-shortcut keymap="$default" first-keystroke="ctrl B" second-keystroke="V" />
+		  </action>
+	  </group>
+  </actions>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+</idea-plugin>
