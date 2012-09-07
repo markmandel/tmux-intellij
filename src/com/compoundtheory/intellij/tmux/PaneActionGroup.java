@@ -38,7 +38,7 @@ public class PaneActionGroup extends ActionGroup
 
 		for(String window : windows)
 		{
-			String target = windowId + ":" + sessionId + ":" + window.split(":")[0].trim();
+			String target = windowId + ":" + sessionId + window.split(":")[0].trim();
 
 			System.out.println("Check target: " + target + " vs " + (TmuxPlugin.currentTarget == null ? "null" : TmuxPlugin.currentTarget));
 
