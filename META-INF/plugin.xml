@@ -4,7 +4,7 @@
 		Plugin that provides Tmux integration with IntelliJ. First pass will be the ability to send data to a specific
 		Tmux panel, which can allow for REPL integration with IntelliJ
 	</description>
-	<version>1.0</version>
+	<version>0.1</version>
 	<vendor>Mark Mandel</vendor>
 
 	<!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->

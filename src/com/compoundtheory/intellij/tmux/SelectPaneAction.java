@@ -39,13 +39,10 @@ public class SelectPaneAction extends AnAction
 
 	private static Icon determineIcon(boolean selected)
 	{
-		System.out.println("determineIcon: " + selected);
-
 		Icon icon = null;
 
 		if(selected)
 		{
-			System.out.println("Icon selected!");
 			icon = IconLoader.getIcon("/actions/checked.png");
 		}
 
