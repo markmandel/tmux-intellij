@@ -78,5 +78,6 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- Add your extensions here -->
+		<applicationConfigurable implementation="com.compoundtheory.intellij.tmux.config.AppConfigurable" />
 	</extensions>
 </idea-plugin>
