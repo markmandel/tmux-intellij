@@ -42,30 +42,30 @@
 
 	<actions>
 		<!-- Add your actions here -->
-		<group id="Tmux.popup.group" class="com.compoundtheory.intellij.tmux.TmuxDefaultActionGroup" text="Tmux"
+		<group id="Tmux.popup.group" class="com.compoundtheory.intellij.tmux.actions.TmuxDefaultActionGroup" text="Tmux"
 			   description="Tmux" popup="true">
             <add-to-group group-id="EditorPopupMenu"/>
         </group>
 
-        <group id="Tmux.default.group" class="com.compoundtheory.intellij.tmux.TmuxDefaultActionGroup" text="Tmux"
+        <group id="Tmux.default.group" class="com.compoundtheory.intellij.tmux.actions.TmuxDefaultActionGroup" text="Tmux"
 			   description="Tmux" popup="true">
 			<add-to-group group-id="ToolsMenu"/>
 
-			<group id="Tmux.panel.select.group" class="com.compoundtheory.intellij.tmux.SelectPaneActionGroup"
+			<group id="Tmux.panel.select.group" class="com.compoundtheory.intellij.tmux.actions.SelectPaneActionGroup"
 				   text="Select Pane:" description="Select the pane you want"
 				   popup="true"/>
 
 
-			<action id="com.compoundtheory.intellij.tmux.SendSelectedTextAction"
-					class="com.compoundtheory.intellij.tmux.SendSelectedTextAction" text="Send Selected To Tmux"
+			<action id="com.compoundtheory.intellij.tmux.actions.SendSelectedTextAction"
+					class="com.compoundtheory.intellij.tmux.actions.SendSelectedTextAction" text="Send Selected To Tmux"
 					description="Sends the selected text to the selected Tmux Pane">
 				<keyboard-shortcut keymap="$default" first-keystroke="ctrl B" second-keystroke="V"/>
 
 				<add-to-group group-id="Tmux.popup.group" anchor="last" />
 			</action>
 
-            <action id="com.compoundtheory.intellij.tmux.SendCurrentLineAction"
-					class="com.compoundtheory.intellij.tmux.SendCurrentLineAction" text="Send Current Line To Tmux"
+            <action id="com.compoundtheory.intellij.tmux.actions.SendCurrentLineAction"
+					class="com.compoundtheory.intellij.tmux.actions.SendCurrentLineAction" text="Send Current Line To Tmux"
 					description="Sends the current line to the selected Tmux Pane">
 				<keyboard-shortcut keymap="$default" first-keystroke="ctrl B" second-keystroke="L"/>
 

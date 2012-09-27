@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.compoundtheory.intellij.tmux;
+package com.compoundtheory.intellij.tmux.actions;
 
 import com.intellij.openapi.actionSystem.DefaultActionGroup;
 

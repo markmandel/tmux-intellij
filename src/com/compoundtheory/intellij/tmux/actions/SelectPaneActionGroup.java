@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.compoundtheory.intellij.tmux;
+package com.compoundtheory.intellij.tmux.actions;
 
+import com.compoundtheory.intellij.tmux.Tmux;
+import com.compoundtheory.intellij.tmux.TmuxPlugin;
 import com.intellij.openapi.actionSystem.ActionGroup;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -44,7 +46,9 @@ public class SelectPaneActionGroup extends ActionGroup
 	@Override
 	public AnAction[] getChildren(@Nullable AnActionEvent anActionEvent)
 	{
-		String[] sessions = CommandUtils.executeCommand(new String[]{"/opt/local/bin/tmux", "list-sessions", "-F #{session_name}: #{?session_attached,(attached),(detached)}:  #{session_windows} windows "}).split("\n");
+		Tmux tmux = Tmux.getInstance();
+
+		String[] sessions = tmux.listSessions();
 
 		ArrayList<AnAction> sessionGroups = new ArrayList<AnAction>();
 
@@ -52,12 +56,12 @@ public class SelectPaneActionGroup extends ActionGroup
 		{
             String sessionID = session.trim().split(":")[0].trim();
             String sessionStatus = session.trim().split(":")[1].trim();
-            String[] windows = CommandUtils.executeCommand(new String[]{"/opt/local/bin/tmux", "list-windows", "-t", sessionID, "-F #{window_index}:#{window_name} #{?window_active,(active),}"}).split("\n");
+            String[] windows = tmux.listWindows(sessionID);
 
             for(String window : windows)
             {
                 String windowID = window.split(":")[0].trim();
-                String[] panes = CommandUtils.executeCommand(new String[]{"/opt/local/bin/tmux", "list-panes", "-t", sessionID + ":" + windowID, "-F #{pane_index}: #{pane_title} #{?pane_active,(active),}"}).split("\n");
+                String[] panes = tmux.listPanes(sessionID, windowID);
 
                 for(String pane : panes)
                 {
@@ -70,4 +74,5 @@ public class SelectPaneActionGroup extends ActionGroup
 
 		return sessionGroups.toArray(new AnAction[sessionGroups.size()]);
 	}
+
 }

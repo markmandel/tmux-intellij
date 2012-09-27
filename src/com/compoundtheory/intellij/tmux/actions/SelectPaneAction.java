@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.compoundtheory.intellij.tmux;
+package com.compoundtheory.intellij.tmux.actions;
 
+import com.compoundtheory.intellij.tmux.TmuxPlugin;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.Messages;
