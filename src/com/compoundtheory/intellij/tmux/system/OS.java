@@ -36,11 +36,8 @@ public abstract class OS
 	{
 
 		String os = System.getProperty("os.name").toLowerCase();
-		System.out.println("OS Name: " + os);
 
 		// Mac
-		System.out.println("Am I a mac?: " + (os.indexOf("mac") >= 0));
-
 		return (os.indexOf("mac") >= 0);
 	}
 

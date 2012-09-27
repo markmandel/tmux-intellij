@@ -31,12 +31,9 @@ public class Tmux
 	private Tmux()
 	{
 		//TODO: make this a setting in the IDE. When I work out how.
-		System.out.println("Am I a Mac? (2) : " + OS.isMac());
-
 		if(OS.isMac())
 		{
-			System.out.println("Setting tmux to the full path");
-			tmuxPath = tmuxPath;
+			tmuxPath = "/opt/local/bin/tmux";
 		}
 		else
 		{

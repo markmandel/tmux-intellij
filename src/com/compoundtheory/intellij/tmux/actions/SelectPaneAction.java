@@ -50,8 +50,6 @@ public class SelectPaneAction extends AnAction
 		TmuxPlugin.currentTarget = this.target;
 
 		Messages.showMessageDialog("Tmux Pane '" + this.title + "' selected.", "Tmux Pane Selected", Messages.getInformationIcon());
-
-		System.out.println("Target set to: " + this.target);
 	}
 
 	private static Icon determineIcon(boolean selected)
