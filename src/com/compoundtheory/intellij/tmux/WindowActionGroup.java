@@ -44,7 +44,7 @@ public class WindowActionGroup extends ActionGroup
 	@Override
 	public AnAction[] getChildren(@Nullable AnActionEvent anActionEvent)
 	{
-		String[] windows = CommandUtils.executeCommand(new String[]{"tmux", "list-windows", "-t", sessionId, "-F #{window_index}:#{window_name} #{?window_active,(active),}"}).split("\n");
+		String[] windows = CommandUtils.executeCommand(new String[]{"/opt/local/bin/tmux", "list-windows", "-t", sessionId, "-F #{window_index}:#{window_name} #{?window_active,(active),}"}).split("\n");
 
 		ArrayList<AnAction> windowGroups = new ArrayList<AnAction>();
 

@@ -51,7 +51,7 @@ public class SendSelectedTextAction extends AnAction
 			return;
 		}
 
-		CommandUtils.executeCommand(new String[]{"tmux", "set-buffer", selectedText});
+		CommandUtils.executeCommand(new String[]{"/opt/local/bin/tmux", "set-buffer", selectedText});
 		CommandUtils.executeCommand(new String[]{"tmux", "paste-buffer", "-t", TmuxPlugin.currentTarget});
 	}
 }

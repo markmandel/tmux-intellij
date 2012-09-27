@@ -48,7 +48,7 @@ public class PaneActionGroup extends ActionGroup
 	{
 		//tmux list-panes -t 0:0 -F '#{pane_index}: #{pane_title} #{?pane_active,(active),}'
 
-		String[] windows = CommandUtils.executeCommand(new String[]{"tmux", "list-panes", "-t", sessionId + ":" + windowId, "-F #{pane_index}: #{pane_title} #{?pane_active,(active),}"}).split("\n");
+		String[] windows = CommandUtils.executeCommand(new String[]{"/opt/local/bin/tmux", "list-panes", "-t", sessionId + ":" + windowId, "-F #{pane_index}: #{pane_title} #{?pane_active,(active),}"}).split("\n");
 
 		ArrayList<AnAction> windowGroups = new ArrayList<AnAction>();
 

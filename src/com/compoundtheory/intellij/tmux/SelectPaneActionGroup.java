@@ -42,7 +42,7 @@ public class SelectPaneActionGroup extends ActionGroup
 	@Override
 	public AnAction[] getChildren(@Nullable AnActionEvent anActionEvent)
 	{
-		String[] sessions = CommandUtils.executeCommand(new String[]{"tmux", "list-sessions", "-F #{session_name}: #{session_windows} windows #{?session_attached,(attached),}"}).split("\n");
+		String[] sessions = CommandUtils.executeCommand(new String[]{"/opt/local/bin/tmux", "list-sessions", "-F #{session_name}: #{session_windows} windows #{?session_attached,(attached),}"}).split("\n");
 
 		ArrayList<AnAction> sessionGroups = new ArrayList<AnAction>();
 
