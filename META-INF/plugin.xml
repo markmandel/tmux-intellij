@@ -58,6 +58,14 @@
 
 				<add-to-group group-id="EditorPopupMenu" anchor="last" />
 			</action>
+
+            <action id="com.compoundtheory.intellij.tmux.SendCurrentLineAction"
+					class="com.compoundtheory.intellij.tmux.SendCurrentLineAction" text="Send Current Line To Tmux"
+					description="Sends the current line to the selected Tmux Pane">
+				<keyboard-shortcut keymap="$default" first-keystroke="ctrl B" second-keystroke="L"/>
+
+				<add-to-group group-id="EditorPopupMenu" anchor="last" />
+			</action>
 		</group>
 
 
