@@ -42,7 +42,12 @@
 
 	<actions>
 		<!-- Add your actions here -->
-		<group id="Tmux.default.group" class="com.compoundtheory.intellij.tmux.TmuxDefaultActionGroup" text="Tmux"
+		<group id="Tmux.popup.group" class="com.compoundtheory.intellij.tmux.TmuxDefaultActionGroup" text="Tmux"
+			   description="Tmux" popup="true">
+            <add-to-group group-id="EditorPopupMenu"/>
+        </group>
+
+        <group id="Tmux.default.group" class="com.compoundtheory.intellij.tmux.TmuxDefaultActionGroup" text="Tmux"
 			   description="Tmux" popup="true">
 			<add-to-group group-id="ToolsMenu"/>
 
@@ -56,7 +61,7 @@
 					description="Sends the selected text to the selected Tmux Pane">
 				<keyboard-shortcut keymap="$default" first-keystroke="ctrl B" second-keystroke="V"/>
 
-				<add-to-group group-id="EditorPopupMenu" anchor="last" />
+				<add-to-group group-id="Tmux.popup.group" anchor="last" />
 			</action>
 
             <action id="com.compoundtheory.intellij.tmux.SendCurrentLineAction"
@@ -64,7 +69,7 @@
 					description="Sends the current line to the selected Tmux Pane">
 				<keyboard-shortcut keymap="$default" first-keystroke="ctrl B" second-keystroke="L"/>
 
-				<add-to-group group-id="EditorPopupMenu" anchor="last" />
+				<add-to-group group-id="Tmux.popup.group" anchor="last" />
 			</action>
 		</group>
 
