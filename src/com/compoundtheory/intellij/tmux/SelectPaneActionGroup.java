@@ -27,7 +27,9 @@ import java.util.ArrayList;
 /**
  * Just the default menu group for the Tmux selection action
  *
- * @author Mark Mandel
+ * Experimental version with a different navigational behaviour for selecting a pane
+ *
+ * @author Kai Koenig
  */
 public class SelectPaneActionGroup extends ActionGroup
 {
@@ -42,14 +44,28 @@ public class SelectPaneActionGroup extends ActionGroup
 	@Override
 	public AnAction[] getChildren(@Nullable AnActionEvent anActionEvent)
 	{
-		String[] sessions = CommandUtils.executeCommand(new String[]{"tmux", "list-sessions", "-F #{session_name}: #{session_windows} windows #{?session_attached,(attached),}"}).split("\n");
+		String[] sessions = CommandUtils.executeCommand(new String[]{"/opt/local/bin/tmux", "list-sessions", "-F #{session_name}: #{?session_attached,(attached),(detached)}:  #{session_windows} windows "}).split("\n");
 
 		ArrayList<AnAction> sessionGroups = new ArrayList<AnAction>();
 
 		for(String session : sessions)
 		{
-			WindowActionGroup sessionGroup = new WindowActionGroup(session.trim());
-			sessionGroups.add(sessionGroup);
+            String sessionID = session.trim().split(":")[0].trim();
+            String sessionStatus = session.trim().split(":")[1].trim();
+            String[] windows = CommandUtils.executeCommand(new String[]{"/opt/local/bin/tmux", "list-windows", "-t", sessionID, "-F #{window_index}:#{window_name} #{?window_active,(active),}"}).split("\n");
+
+            for(String window : windows)
+            {
+                String windowID = window.split(":")[0].trim();
+                String[] panes = CommandUtils.executeCommand(new String[]{"/opt/local/bin/tmux", "list-panes", "-t", sessionID + ":" + windowID, "-F #{pane_index}: #{pane_title} #{?pane_active,(active),}"}).split("\n");
+
+                for(String pane : panes)
+                {
+                    String target = sessionID + ":" + windowID + "." + pane.split(":")[0].trim();
+                    String label = "Session " + sessionID + " " + sessionStatus + " | Window " + window + " | Pane " + pane;
+                    sessionGroups.add(new SelectPaneAction(target, label, (target.equals(TmuxPlugin.currentTarget))));
+                }
+            }
 		}
 
 		return sessionGroups.toArray(new AnAction[sessionGroups.size()]);
