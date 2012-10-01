@@ -38,6 +38,12 @@ public class AppConfigurable implements SearchableConfigurable
 
 	private JPanel myPanel;
 	private TextFieldWithBrowseButton myPathField;
+	private TmuxAppSettings settings;
+
+	public AppConfigurable()
+	{
+		settings = TmuxAppSettings.getInstance();
+	}
 
 	@Nls
 	public String getDisplayName()
@@ -62,6 +68,9 @@ public class AppConfigurable implements SearchableConfigurable
 		myPanel.add(contentPanel, BorderLayout.NORTH);
 		contentPanel.add(new JLabel("Tmux Binary: "), BorderLayout.WEST);
 		myPathField = new TextFieldWithBrowseButton();
+
+		myPathField.setText(settings.TMUX_BINARY_PATH);
+
 		contentPanel.add(myPathField);
 
 		myPathField.addBrowseFolderListener("Select Tmux Binary", "", null, new FileChooserDescriptor(true, false, false, false, false, false)
@@ -78,15 +87,19 @@ public class AppConfigurable implements SearchableConfigurable
 
 	public boolean isModified()
 	{
-		return true;
+		boolean modified = !myPathField.getText().equals(settings.TMUX_BINARY_PATH);
+
+		return modified;
 	}
 
 	public void apply() throws ConfigurationException
 	{
+		settings.TMUX_BINARY_PATH = myPathField.getText();
 	}
 
 	public void reset()
 	{
+		myPathField.setText(settings.TMUX_BINARY_PATH);
 	}
 
 	public void disposeUIResources()
@@ -98,7 +111,7 @@ public class AppConfigurable implements SearchableConfigurable
 	@NotNull
 	public String getId()
 	{
-		return "Tmux.App.Configuration";  //To change body of implemented methods use File | Settings | File Templates.
+		return "Tmux.App.Configuration";
 	}
 
 	public Runnable enableSearch(String s)

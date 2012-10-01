@@ -16,8 +16,9 @@
 
 package com.compoundtheory.intellij.tmux;
 
+import com.compoundtheory.intellij.tmux.config.TmuxAppSettings;
 import com.compoundtheory.intellij.tmux.system.CommandUtils;
-import com.compoundtheory.intellij.tmux.system.OS;
+import com.intellij.openapi.components.ServiceManager;
 
 /**
  * General utility class for manipulating tmux
@@ -26,19 +27,11 @@ import com.compoundtheory.intellij.tmux.system.OS;
 public class Tmux
 {
 	private static Tmux INSTANCE = new Tmux();
-	private String tmuxPath;
+	private TmuxAppSettings settings;
 
 	private Tmux()
 	{
-		//TODO: make this a setting in the IDE. When I work out how.
-		if(OS.isMac())
-		{
-			tmuxPath = "/opt/local/bin/tmux";
-		}
-		else
-		{
-			tmuxPath = "tmux";
-		}
+		settings = ServiceManager.getService(TmuxAppSettings.class);
 	}
 
 	public static Tmux getInstance()
@@ -48,22 +41,22 @@ public class Tmux
 
 	public String[] listSessions()
 	{
-		return CommandUtils.executeCommand(new String[]{tmuxPath, "list-sessions", "-F #{session_name}: #{?session_attached,(attached),(detached)}:  #{session_windows} windows "}).split("\n");
+		return CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "list-sessions", "-F #{session_name}: #{?session_attached,(attached),(detached)}:  #{session_windows} windows "}).split("\n");
 	}
 
 	public String[] listWindows(String sessionID)
 	{
-		return CommandUtils.executeCommand(new String[]{tmuxPath, "list-windows", "-t", sessionID, "-F #{window_index}:#{window_name} #{?window_active,(active),}"}).split("\n");
+		return CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "list-windows", "-t", sessionID, "-F #{window_index}:#{window_name} #{?window_active,(active),}"}).split("\n");
 	}
 
 	public String[] listPanes(String sessionID, String windowID)
 	{
-		return CommandUtils.executeCommand(new String[]{tmuxPath, "list-panes", "-t", sessionID + ":" + windowID, "-F #{pane_index}: #{pane_title} #{?pane_active,(active),}"}).split("\n");
+		return CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "list-panes", "-t", sessionID + ":" + windowID, "-F #{pane_index}: #{pane_title} #{?pane_active,(active),}"}).split("\n");
 	}
 
 	public void sendText(String currentLineText, String currentTarget)
 	{
-		CommandUtils.executeCommand(new String[]{tmuxPath, "set-buffer", currentLineText});
-		CommandUtils.executeCommand(new String[]{tmuxPath, "paste-buffer", "-t", TmuxPlugin.currentTarget});
+		CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "set-buffer", currentLineText});
+		CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "paste-buffer", "-t", TmuxPlugin.currentTarget});
 	}
 }

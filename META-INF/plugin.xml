@@ -37,7 +37,7 @@
 	</application-components>
 
 	<project-components>
-		<!-- Add your project components here -->
+		<!-- project components -->
 	</project-components>
 
 	<actions>
@@ -78,6 +78,10 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- Add your extensions here -->
-		<applicationConfigurable implementation="com.compoundtheory.intellij.tmux.config.AppConfigurable" />
+		<applicationConfigurable instance="com.compoundtheory.intellij.tmux.config.AppConfigurable"></applicationConfigurable>
+		<applicationService serviceImplementation="com.compoundtheory.intellij.tmux.config.TmuxAppSettings" serviceInterface="com.compoundtheory.intellij.tmux.config.TmuxAppSettings" />
+
 	</extensions>
+
+
 </idea-plugin>
