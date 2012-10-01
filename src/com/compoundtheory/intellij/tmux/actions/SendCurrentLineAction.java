@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-package com.compoundtheory.intellij.tmux;
+package com.compoundtheory.intellij.tmux.actions;
 
+import com.compoundtheory.intellij.tmux.Tmux;
+import com.compoundtheory.intellij.tmux.TmuxPlugin;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataKeys;
+import com.intellij.openapi.editor.CaretModel;
+import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.SelectionModel;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.util.TextRange;
 
 /**
- * @author Mark Mandel
+ * @author Kai Koenig
  */
-public class SendSelectedTextAction extends AnAction
+public class SendCurrentLineAction extends AnAction
 {
 	public void actionPerformed(AnActionEvent e)
 	{
@@ -38,12 +42,28 @@ public class SendSelectedTextAction extends AnAction
 			return;
 		}
 
-		SelectionModel selectionModel = editor.getSelectionModel();
-		String selectedText = selectionModel.getSelectedText();
+		CaretModel caretModel = editor.getCaretModel();
+        Document document = editor.getDocument();
 
-		if (selectedText == null || selectedText.trim().length() == 0) {
-			return;
-		}
+        int currentCaretOffset = caretModel.getOffset();
+        int currentLine = document.getLineNumber(currentCaretOffset);
+        int startOffset = document.getLineStartOffset(currentLine);
+        int endOffset = document.getLineEndOffset(currentLine);
+
+        // if the line is empty (or the caret is not even in the editor) we don't do anything
+        if (endOffset - startOffset == 0) {
+            return;
+        }
+
+        TextRange currentLineTextRange = new TextRange(startOffset,endOffset);
+        if (currentLineTextRange == null) {
+            return;
+        }
+
+        String currentLineText = document.getText(currentLineTextRange);
+        if (currentLineText == null || currentLineText.trim().length() == 0) {
+            return;
+        }
 
 		if(TmuxPlugin.currentTarget == null)
 		{
@@ -51,7 +71,6 @@ public class SendSelectedTextAction extends AnAction
 			return;
 		}
 
-		CommandUtils.executeCommand(new String[]{"tmux", "set-buffer", selectedText});
-		CommandUtils.executeCommand(new String[]{"tmux", "paste-buffer", "-t", TmuxPlugin.currentTarget});
+		Tmux.getInstance().sendText(currentLineText, TmuxPlugin.currentTarget);
 	}
 }

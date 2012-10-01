@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.compoundtheory.intellij.tmux;
+package com.compoundtheory.intellij.tmux.actions;
 
+import com.compoundtheory.intellij.tmux.TmuxPlugin;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.Messages;
@@ -49,8 +50,6 @@ public class SelectPaneAction extends AnAction
 		TmuxPlugin.currentTarget = this.target;
 
 		Messages.showMessageDialog("Tmux Pane '" + this.title + "' selected.", "Tmux Pane Selected", Messages.getInformationIcon());
-
-		System.out.println("Target set to: " + this.target);
 	}
 
 	private static Icon determineIcon(boolean selected)

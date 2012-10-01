@@ -18,9 +18,11 @@
 	<name>Tmux</name>
 	<description>
 		Plugin that provides Tmux integration with IntelliJ. First pass will be the ability to send data to a specific
-		Tmux panel, which can allow for REPL integration with IntelliJ
+		Tmux panel, which can allow for REPL integration with IntelliJ.
+
+		Further details can be found at: https://github.com/markmandel/tmux-intellij
 	</description>
-	<version>0.1</version>
+	<version>0.2</version>
 	<vendor>Mark Mandel</vendor>
 
 	<!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
@@ -37,26 +39,39 @@
 	</application-components>
 
 	<project-components>
-		<!-- Add your project components here -->
+		<!-- project components -->
 	</project-components>
 
 	<actions>
 		<!-- Add your actions here -->
-		<group id="Tmux.default.group" class="com.compoundtheory.intellij.tmux.TmuxDefaultActionGroup" text="Tmux"
+		<group id="Tmux.popup.group" class="com.compoundtheory.intellij.tmux.actions.TmuxDefaultActionGroup" text="Tmux"
+			   description="Tmux" popup="true">
+            <add-to-group group-id="EditorPopupMenu"/>
+        </group>
+
+        <group id="Tmux.default.group" class="com.compoundtheory.intellij.tmux.actions.TmuxDefaultActionGroup" text="Tmux"
 			   description="Tmux" popup="true">
 			<add-to-group group-id="ToolsMenu"/>
 
-			<group id="Tmux.panel.select.group" class="com.compoundtheory.intellij.tmux.SelectPaneActionGroup"
+			<group id="Tmux.panel.select.group" class="com.compoundtheory.intellij.tmux.actions.SelectPaneActionGroup"
 				   text="Select Pane:" description="Select the pane you want"
 				   popup="true"/>
 
 
-			<action id="com.compoundtheory.intellij.tmux.SendSelectedTextAction"
-					class="com.compoundtheory.intellij.tmux.SendSelectedTextAction" text="Send Selected To Tmux"
+			<action id="com.compoundtheory.intellij.tmux.actions.SendSelectedTextAction"
+					class="com.compoundtheory.intellij.tmux.actions.SendSelectedTextAction" text="Send Selected To Tmux"
 					description="Sends the selected text to the selected Tmux Pane">
 				<keyboard-shortcut keymap="$default" first-keystroke="ctrl B" second-keystroke="V"/>
 
-				<add-to-group group-id="EditorPopupMenu" anchor="last" />
+				<add-to-group group-id="Tmux.popup.group" anchor="last" />
+			</action>
+
+            <action id="com.compoundtheory.intellij.tmux.actions.SendCurrentLineAction"
+					class="com.compoundtheory.intellij.tmux.actions.SendCurrentLineAction" text="Send Current Line To Tmux"
+					description="Sends the current line to the selected Tmux Pane">
+				<keyboard-shortcut keymap="$default" first-keystroke="ctrl B" second-keystroke="L"/>
+
+				<add-to-group group-id="Tmux.popup.group" anchor="last" />
 			</action>
 		</group>
 
@@ -65,5 +80,10 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- Add your extensions here -->
+		<applicationConfigurable instance="com.compoundtheory.intellij.tmux.config.AppConfigurable"></applicationConfigurable>
+		<applicationService serviceImplementation="com.compoundtheory.intellij.tmux.config.TmuxAppSettings" serviceInterface="com.compoundtheory.intellij.tmux.config.TmuxAppSettings" />
+
 	</extensions>
+
+
 </idea-plugin>

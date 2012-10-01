@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.compoundtheory.intellij.tmux;
+package com.compoundtheory.intellij.tmux.system;
 
 
 import com.intellij.openapi.diagnostic.Logger;

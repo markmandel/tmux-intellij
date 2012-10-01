@@ -5,8 +5,19 @@ Plugin that provides Tmux integration with IntelliJ. First pass will be the abil
 
 Usage
 ------
-1. First select a the pane you want your highlighted text to go to through *Tools > Tmux > Select Pane*. This pane selection is persisted until you restart IntelliJ.
+
+### Selecting the Pane to Send Text To ###
+
+1. You must first select a the pane you want your text to go to through *Tools > Tmux > Select Pane*. This pane selection is persisted until you restart IntelliJ.
+
+
+### Send Selected Text to Tmux ###
+
 1. To paste text to the Tmux pane from here, you can select the *Send Selected to Tmux* action (*Tools > Tmux*, or through the right click menu), or through the shortcut key, Ctrl+B, V.
+
+### Send Current Line to Tmux ###
+1. To send the text from the current line your caret is on to a Tmux pane, you can select the *Send Current Line To Tmux* action (*Tools > Tmux*, or through the right click menu), or through the shortcut key, Ctrl+B, L.
+
 
 
 Contribution
