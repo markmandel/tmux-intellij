@@ -71,6 +71,6 @@ public class SendCurrentLineAction extends AnAction
 			return;
 		}
 
-		Tmux.getInstance().sendText(currentLineText, TmuxPlugin.currentTarget);
+		Tmux.getInstance().sendText(currentLineText.trim(), TmuxPlugin.currentTarget);
 	}
 }
