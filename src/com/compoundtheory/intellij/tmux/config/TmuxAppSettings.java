@@ -34,7 +34,9 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 )
 public class TmuxAppSettings implements PersistentStateComponent<TmuxAppSettings>
 {
-	public String TMUX_BINARY_PATH = "tmux";
+	public String TMUX_OS = System.getProperty("os.name");
+
+    public String TMUX_BINARY_PATH = (TMUX_OS.startsWith("Mac") ? "/opt/local/bin/tmux" : "tmux");
 
 	public static TmuxAppSettings getInstance()
 	{
