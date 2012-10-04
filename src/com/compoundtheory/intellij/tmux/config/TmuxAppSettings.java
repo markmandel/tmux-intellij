@@ -16,6 +16,7 @@
 
 package com.compoundtheory.intellij.tmux.config;
 
+import com.compoundtheory.intellij.tmux.system.OS;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
@@ -34,9 +35,8 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
 )
 public class TmuxAppSettings implements PersistentStateComponent<TmuxAppSettings>
 {
-	public String TMUX_OS = System.getProperty("os.name");
-
-    public String TMUX_BINARY_PATH = (TMUX_OS.startsWith("Mac") ? "/opt/local/bin/tmux" : "tmux");
+	//assume macports
+    public String TMUX_BINARY_PATH = (OS.isMac() ? "/opt/local/bin/tmux" : "tmux");
 
 	public static TmuxAppSettings getInstance()
 	{
