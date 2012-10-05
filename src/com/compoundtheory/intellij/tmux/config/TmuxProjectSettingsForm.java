@@ -37,6 +37,15 @@ public class TmuxProjectSettingsForm
 	}
 
 	/**
+	 * Whether or not the append the new line to the checkbox is selected
+	 * @return selected or not.
+	 */
+	public boolean isAppendNToTheCheckBoxSelected()
+	{
+		return appendNToTheCheckBox.isSelected();
+	}
+
+	/**
 	 * Get the root level component
 	 * @return the root level component
 	 */

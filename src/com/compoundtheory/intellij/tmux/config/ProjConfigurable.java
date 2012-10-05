@@ -18,6 +18,7 @@ package com.compoundtheory.intellij.tmux.config;
 
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
+import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nls;
 
 import javax.swing.*;
@@ -28,6 +29,14 @@ import javax.swing.*;
 public class ProjConfigurable implements Configurable
 {
 	private TmuxProjectSettingsForm form;
+	private Project project;
+	private TmuxProjSettings settings;
+
+	public ProjConfigurable(Project project)
+	{
+		this.project = project;
+		settings = TmuxProjSettings.getInstance(project);
+	}
 
 	@Nls
 	public String getDisplayName()
@@ -53,18 +62,17 @@ public class ProjConfigurable implements Configurable
 
 	public boolean isModified()
 	{
-		//TODO: Implement me!
-		return false;
+		return settings.APPEND_NEW_LINE_TO_COMMAND != form.isAppendNToTheCheckBoxSelected();
 	}
 
 	public void apply() throws ConfigurationException
 	{
-		//TODO: Implement me!
+		settings.APPEND_NEW_LINE_TO_COMMAND = form.isAppendNToTheCheckBoxSelected();
 	}
 
 	public void reset()
 	{
-		//TODO: Implement me!
+		form.setAppendNToTheCheckBoxSelected(settings.APPEND_NEW_LINE_TO_COMMAND);
 	}
 
 	public void disposeUIResources()

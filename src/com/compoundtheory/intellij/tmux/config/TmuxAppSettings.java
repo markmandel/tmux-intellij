@@ -31,7 +31,7 @@ import com.intellij.util.xmlb.XmlSerializerUtil;
  */
 @State(
 		name = "TmuxAppSettings",
-		storages = {@Storage(file = "$APP_CONFIG$/tmux.xml")}
+		storages = {@Storage(file = "$APP_CONFIG$$APP_CONFIG$/tmux.xml")}
 )
 public class TmuxAppSettings implements PersistentStateComponent<TmuxAppSettings>
 {

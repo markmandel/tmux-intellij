@@ -80,10 +80,11 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- Add your extensions here -->
-		<applicationConfigurable instance="com.compoundtheory.intellij.tmux.config.AppConfigurable"></applicationConfigurable>
+		<applicationConfigurable instance="com.compoundtheory.intellij.tmux.config.AppConfigurable" />
 		<applicationService serviceImplementation="com.compoundtheory.intellij.tmux.config.TmuxAppSettings" serviceInterface="com.compoundtheory.intellij.tmux.config.TmuxAppSettings" />
 
-		<projectConfigurable instance="com.compoundtheory.intellij.tmux.config.ProjConfigurable"></projectConfigurable>
+		<projectConfigurable instance="com.compoundtheory.intellij.tmux.config.ProjConfigurable" />
+		<projectService serviceImplementation="com.compoundtheory.intellij.tmux.config.TmuxProjSettings" serviceInterface="com.compoundtheory.intellij.tmux.config.TmuxProjSettings" />
 
 	</extensions>
 
