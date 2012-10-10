@@ -17,6 +17,7 @@
 package com.compoundtheory.intellij.tmux;
 
 import com.compoundtheory.intellij.tmux.config.TmuxAppSettings;
+import com.compoundtheory.intellij.tmux.config.TmuxProjSettings;
 import com.compoundtheory.intellij.tmux.system.CommandUtils;
 import com.intellij.openapi.components.ServiceManager;
 
@@ -54,9 +55,20 @@ public class Tmux
 		return CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "list-panes", "-t", sessionID + ":" + windowID, "-F #{pane_index}: #{pane_title} #{?pane_active,(active),}"}).split("\n");
 	}
 
-	public void sendText(String currentLineText, String currentTarget)
+	/**
+	 * Sends text to a Tmux pane of your choice.
+	 * @param text the text to send
+	 * @param currentTarget the Tmux target string
+	 * @param projSettings the current project settings
+	 */
+	public void sendText(String text, String currentTarget, TmuxProjSettings projSettings)
 	{
-		CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "set-buffer", currentLineText});
+		if(projSettings.APPEND_NEW_LINE_TO_COMMAND && !text.endsWith("\n"))
+		{
+			text += "\n";
+		}
+
+		CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "set-buffer", text});
 		CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "paste-buffer", "-t", TmuxPlugin.currentTarget});
 	}
 }

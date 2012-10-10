@@ -22,8 +22,8 @@
 
 		Further details can be found at: https://github.com/markmandel/tmux-intellij
 	</description>
-	<version>0.2</version>
-	<vendor>Mark Mandel</vendor>
+	<version>0.3</version>
+	<vendor url="http://www.compoundtheory.com">Mark Mandel</vendor>
 
 	<!-- please see http://confluence.jetbrains.net/display/IDEADEV/Build+Number+Ranges for description -->
 	<idea-version since-build="107.105"/>
@@ -80,8 +80,11 @@
 
 	<extensions defaultExtensionNs="com.intellij">
 		<!-- Add your extensions here -->
-		<applicationConfigurable instance="com.compoundtheory.intellij.tmux.config.AppConfigurable"></applicationConfigurable>
+		<applicationConfigurable instance="com.compoundtheory.intellij.tmux.config.AppConfigurable" />
 		<applicationService serviceImplementation="com.compoundtheory.intellij.tmux.config.TmuxAppSettings" serviceInterface="com.compoundtheory.intellij.tmux.config.TmuxAppSettings" />
+
+		<projectConfigurable instance="com.compoundtheory.intellij.tmux.config.ProjConfigurable" />
+		<projectService serviceImplementation="com.compoundtheory.intellij.tmux.config.TmuxProjSettings" serviceInterface="com.compoundtheory.intellij.tmux.config.TmuxProjSettings" />
 
 	</extensions>
 

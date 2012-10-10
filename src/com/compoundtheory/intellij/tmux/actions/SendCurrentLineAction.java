@@ -18,12 +18,14 @@ package com.compoundtheory.intellij.tmux.actions;
 
 import com.compoundtheory.intellij.tmux.Tmux;
 import com.compoundtheory.intellij.tmux.TmuxPlugin;
+import com.compoundtheory.intellij.tmux.config.TmuxProjSettings;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataKeys;
 import com.intellij.openapi.editor.CaretModel;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.util.TextRange;
 
@@ -44,6 +46,8 @@ public class SendCurrentLineAction extends AnAction
 
 		CaretModel caretModel = editor.getCaretModel();
         Document document = editor.getDocument();
+		Project project = e.getData(DataKeys.PROJECT);
+		TmuxProjSettings settings = TmuxProjSettings.getInstance(project);
 
         int currentCaretOffset = caretModel.getOffset();
         int currentLine = document.getLineNumber(currentCaretOffset);
@@ -71,6 +75,6 @@ public class SendCurrentLineAction extends AnAction
 			return;
 		}
 
-		Tmux.getInstance().sendText(currentLineText, TmuxPlugin.currentTarget);
+		Tmux.getInstance().sendText(currentLineText.trim(), TmuxPlugin.currentTarget, settings);
 	}
 }

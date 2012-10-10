@@ -18,11 +18,13 @@ package com.compoundtheory.intellij.tmux.actions;
 
 import com.compoundtheory.intellij.tmux.Tmux;
 import com.compoundtheory.intellij.tmux.TmuxPlugin;
+import com.compoundtheory.intellij.tmux.config.TmuxProjSettings;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.DataKeys;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.SelectionModel;
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 
 /**
@@ -42,6 +44,8 @@ public class SendSelectedTextAction extends AnAction
 
 		SelectionModel selectionModel = editor.getSelectionModel();
 		String selectedText = selectionModel.getSelectedText();
+		Project project = e.getData(DataKeys.PROJECT);
+		TmuxProjSettings settings = TmuxProjSettings.getInstance(project);
 
 		if (selectedText == null || selectedText.trim().length() == 0) {
 			return;
@@ -53,6 +57,6 @@ public class SendSelectedTextAction extends AnAction
 			return;
 		}
 
-		Tmux.getInstance().sendText(selectedText, TmuxPlugin.currentTarget);
+		Tmux.getInstance().sendText(selectedText, TmuxPlugin.currentTarget, settings);
 	}
 }
