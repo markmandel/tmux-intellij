@@ -68,6 +68,8 @@ public class Tmux
 			text += "\n";
 		}
 
+		text = ":paste\n" + text + "\n" + "\u0004";
+
 		CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "set-buffer", text});
 		CommandUtils.executeCommand(new String[]{settings.TMUX_BINARY_PATH, "paste-buffer", "-t", TmuxPlugin.currentTarget});
 	}
