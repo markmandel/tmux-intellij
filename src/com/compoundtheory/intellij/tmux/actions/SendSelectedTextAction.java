@@ -16,6 +16,7 @@
 
 package com.compoundtheory.intellij.tmux.actions;
 
+import com.compoundtheory.intellij.tmux.LanguageHooks;
 import com.compoundtheory.intellij.tmux.Tmux;
 import com.compoundtheory.intellij.tmux.TmuxPlugin;
 import com.compoundtheory.intellij.tmux.config.TmuxProjSettings;
@@ -56,6 +57,7 @@ public class SendSelectedTextAction extends AnAction
 			Messages.showErrorDialog(e.getProject(), "Please select a pane before sending text to Tmux.", "Error sending data to Tmux");
 			return;
 		}
+		selectedText = LanguageHooks.check(e, selectedText);
 
 		Tmux.getInstance().sendText(selectedText, TmuxPlugin.currentTarget, settings);
 	}
