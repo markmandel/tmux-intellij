@@ -21,5 +21,4 @@ public class LanguageHooks {
         }
         return extension;
     }
-
 }
