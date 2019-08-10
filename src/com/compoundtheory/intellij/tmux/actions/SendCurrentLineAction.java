@@ -75,7 +75,7 @@ public class SendCurrentLineAction extends AnAction
 			Messages.showErrorDialog(e.getProject(), "Please select a pane before sending text to Tmux.", "Error sending data to Tmux");
 			return;
 		}
-		currentLineText = LanguageHooks.check(e, currentLineText.trim());
+		currentLineText = LanguageHooks.check(editor, currentLineText.trim());
 
 		Tmux.getInstance().sendText(currentLineText, TmuxPlugin.currentTarget, settings);
 	}

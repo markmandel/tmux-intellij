@@ -57,7 +57,7 @@ public class SendSelectedTextAction extends AnAction
 			Messages.showErrorDialog(e.getProject(), "Please select a pane before sending text to Tmux.", "Error sending data to Tmux");
 			return;
 		}
-		selectedText = LanguageHooks.check(e, selectedText);
+		selectedText = LanguageHooks.check(editor, selectedText);
 
 		Tmux.getInstance().sendText(selectedText, TmuxPlugin.currentTarget, settings);
 	}
